@@ -20,3 +20,17 @@ node index.js -d build -f proxy.json
 ```
 node index.js -d build -f proxy.json -i build/index.html
 ```
+
+proxy.json 配置：
+```
+[
+  {
+    "path": "/api",
+    "proxy": {
+      "target": "http://backend/api",
+      "changeOrigin": true,
+      "pathRewrite": { "^/api": "/" }
+    }
+  }
+]
+```
