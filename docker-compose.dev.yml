@@ -1,0 +1,17 @@
+version: "2"
+
+services:
+  app:
+    image: node:8-alpine
+    expose:
+      - "3000"
+    ports:
+      - "3000"
+    volumes:
+      - ./rootfs/app:/app
+    environment:
+      - NODE_ENV=development
+    working_dir: /app
+    command: cat
+    tty: true
+    stdin_open: true
