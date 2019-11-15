@@ -48,16 +48,17 @@ const main = () => {
 
   let dir = path.resolve(program.dir || '.')
   app.use(express.static(dir, { index: ['index.html', 'index.htm'] }))
-  if (program.index && fs.existsSync(program.index)) {
-    app.use((__: Request, res: Response) => {
-      res.sendFile(path.resolve(program.index))
-    })
-  }
 
   _.each(proxyConfig, (config) => {
     console.log(`proxy ${config.path} => ${config.proxy.target}`)
     app.use(config.path, proxy(config.proxy))
   })
+
+  if (program.index && fs.existsSync(program.index)) {
+    app.use((__: Request, res: Response) => {
+      res.sendFile(path.resolve(program.index))
+    })
+  }
 
   let port = parseInt(program.port, 10) || 3000
   let hostname = program.bind || '0.0.0.0'
